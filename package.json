@@ -1,0 +1,32 @@
+{
+  "name": "star-wars-autocomplete",
+  "version": "1.0.0",
+  "description": "An example application for playing with asynchronous data in a React and Redux application.",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "lodash": "4.17.15",
+    "node-sass": "^4.13.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-redux": "7.1.3",
+    "react-scripts": "3.2.0",
+    "redux": "4.0.4",
+    "redux-observable": "1.2.0",
+    "redux-saga": "1.1.3",
+    "redux-thunk": "2.3.0",
+    "rxjs": "6.5.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
