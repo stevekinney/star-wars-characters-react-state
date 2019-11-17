@@ -5,7 +5,7 @@ const Character = ({ character }) => {
   const { id, name } = character;
   return (
     <article className="Character">
-      <a href={`${endpoint}api/characters/${id}`}>{name}</a>
+      <a href={`${endpoint}/characters/${id}`}>{name}</a>
     </article>
   );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 const SearchCharacters = ({ query, onChange: handleChange }) => {
   return (
     <input
-      onChange={handleChange}
+      onChange={event => handleChange(event.target.value)}
       placeholder="Search Here"
       type="search"
       value={query}
