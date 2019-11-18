@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Character from './Character';
+import endpoint from './endpoint';
 
-const Characters = ({ characters = [] }) => {
+const Characters = () => {
+  const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    fetch(endpoint + '/characters')
+      .then(response => response.json())
+      .then(response => setCharacters(Object.values(response.characters)))
+      .catch(console.error);
+  }, []);
+
   return (
     <section className="Characters">
       {characters.map(character => (

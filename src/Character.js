@@ -1,11 +1,12 @@
 import React from 'react';
-import endpoint from './endpoint';
+
+import { Link } from 'react-router-dom';
 
 const Character = ({ character }) => {
   const { id, name } = character;
   return (
     <article className="Character">
-      <a href={`${endpoint}/characters/${id}`}>{name}</a>
+      <Link to={`/characters/${id}`}>{name}</Link>
     </article>
   );
 };

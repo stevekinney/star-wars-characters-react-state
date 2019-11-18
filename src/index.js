@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SearchCharacters from './SearchCharacters';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Characters from './Characters';
 
 import './styles.scss';
+import CharacterView from './CharacterView';
 
 const Application = () => {
-  const [query, setQuery] = useState('');
-  const [characters, setCharacters] = useState([]);
-
-  const handleQueryChange = newQuery => {
-    setQuery(newQuery);
-  };
-
   return (
     <div className="Application">
       <h1>Star Wars Characters</h1>
-      <SearchCharacters query={query} onChange={handleQueryChange} />
-      <Characters characters={characters} />
+      <main>
+        <section className="sidebar">
+          <Characters />
+        </section>
+        <section className="character-view">
+          <Route path="/characters/:id" component={CharacterView} />
+        </section>
+      </main>
     </div>
   );
 };
 
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(<Application />, rootElement);
+ReactDOM.render(
+  <Router>
+    <Application />
+  </Router>,
+  rootElement,
+);
