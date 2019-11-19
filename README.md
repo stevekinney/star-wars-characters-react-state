@@ -57,4 +57,144 @@ useEffect(() => {
 }, [query]);
 ```
 
-## A Refactoring for a Different Kind of API
+## Adding Loading and Error States
+
+We'll need to keep track of that state.
+
+```js
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(error);
+```
+
+Updating the fetch effect.
+
+```js
+fetch(`${endpoint}/search/${query}`)
+    .then(response => response.json())
+    .then(response => {
+      setCharacters(Object.values(response.characters));
+      setLoading(false);
+    })
+    .catch(error => {
+      setError(error);
+      setLoading(false);
+      setCharacters([]);
+    });
+}, [query]);
+```
+
+### Displaying It In The Component
+
+```js
+return (
+  <div className="Application">
+    <h1>Star Wars Characters</h1>
+    <SearchCharacters query={query} onChange={handleQueryChange} />
+    {loading ? (
+      <p className="loading">Loading…</p>
+    ) : (
+      <Characters characters={characters} />
+    )}
+    {error && <p className="error">{error.message}</p>}
+  </div>
+);
+```
+
+## Creating a Custom Hook
+
+```js
+const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
+  const [result, setResult] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        setResult(formatResponse(response));
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+        setResult([]);
+      });
+  }, dependencies);
+
+  return [result, loading, error];
+};
+```
+
+Then, in the component.
+
+```js
+const [characters, loading, error] = useFetch(
+  `${endpoint}/search/${query}`,
+  [query],
+  response => Object.values(response.characters),
+);
+```
+
+## Refactoring to a Reducer
+
+Writing a reducer
+
+**TODO**: Refactor this out into an exercise with tests and let the students implement it.
+
+```js
+const fetchReducer = (state, action) => {
+  if (action.type === 'FETCHING') {
+    return {
+      result: null,
+      loading: true,
+      error: null,
+    };
+  }
+
+  if (action.type === 'RESPONSE_COMPLETE') {
+    return {
+      result: action.payload.result,
+      loading: false,
+      error: null,
+    };
+  }
+
+  if (action.type === 'ERROR') {
+    return {
+      result: null,
+      loading: false,
+      error: action.payload.error,
+    };
+  }
+
+  return state;
+};
+```
+
+Now, we can just dispatch actions.
+
+```js
+const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: 'FETCHING' });
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        dispatch({
+          type: 'RESPONSE_COMPLETE',
+          payload: { result: formatResponse(response) },
+        });
+      })
+      .catch(error => {
+        dispatch({ type: 'ERROR', payload: { error } });
+      });
+  }, dependencies);
+
+  const { result, loading, error } = state;
+
+  return [result, loading, error];
+};
+```
