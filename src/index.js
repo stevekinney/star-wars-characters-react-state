@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import SearchCharacters from './SearchCharacters';
-import Characters from './Characters';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import CharacterList from './CharacterList';
+
+import dummyData from './dummy-data';
 
 import './styles.scss';
 
 const Application = () => {
-  const [query, setQuery] = useState('');
-  const [characters, setCharacters] = useState([]);
-
-  const handleQueryChange = newQuery => {
-    setQuery(newQuery);
-  };
+  const [characters, setCharacters] = useState(
+    Object.values(dummyData.characters),
+  );
 
   return (
     <div className="Application">
-      <h1>Star Wars Characters</h1>
-      <SearchCharacters query={query} onChange={handleQueryChange} />
-      <Characters characters={characters} />
+      <header>
+        <h1>Star Wars Characters</h1>
+      </header>
+      <main>
+        <section className="sidebar">
+          <CharacterList characters={characters} />
+        </section>
+      </main>
     </div>
   );
 };
 
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(<Application />, rootElement);
+ReactDOM.render(
+  <Router>
+    <Application />
+  </Router>,
+  rootElement,
+);

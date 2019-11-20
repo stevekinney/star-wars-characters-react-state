@@ -88,11 +88,43 @@ input[type='submit'] {
     text-align: center;
   }
   margin: 0.5em auto;
-  max-width: 600px;
+  max-width: 800px;
+
+  main {
+    display: flex;
+  }
 }
 
-.Tweet {
-  border: 1px solid $control-color;
-  margin: 1em 0;
+.sidebar {
+  width: 100%;
+  flex: 1;
+}
+
+.CharacterView {
+  padding: 0 2em;
+  flex: 3;
+  width: 100%;
+}
+
+.CharacterListItem {
+  padding: 0.5em;
+}
+
+.CharacterListItemLink {
+  color: black;
+  text-decoration: none;
+  border: 1px solid $button-color;
+  display: block;
   padding: 1em;
+  &.active {
+    background-color: lighten($button-color, 30%);
+  }
+}
+
+.CharacterDetails {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 1em;
+  }
 }
