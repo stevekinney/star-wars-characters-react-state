@@ -1,5 +1,5 @@
 {
-  "name": "star-wars-autocomplete",
+  "name": "star-wars-characters",
   "version": "1.0.0",
   "description": "An example application for playing with asynchronous data in a React and Redux application.",
   "keywords": [],
