@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -9,8 +9,19 @@ import dummyData from './dummy-data';
 
 import './styles.scss';
 
+const reducer = (state, action) => {
+  return state;
+};
+
+const initialState = {
+  error: null,
+  loading: false,
+  characters: Object.values(dummyData),
+};
+
 const Application = () => {
-  const [characters, setCharacters] = useState(dummyData);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { characters } = state;
 
   return (
     <div className="Application">
