@@ -252,7 +252,7 @@ const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
 };
 ```
 
-## Despensing Asynchronous Actions
+## Dispensing Asynchronous Actions
 
 **Important**: We're going to check out the `asynchronous-actions` branch.
 
@@ -262,20 +262,81 @@ How could we right a simple thunk reducer?
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const enhancedDispatch = action => {
-    if (typeof action === 'function') {
-      console.log('It is a thunk');
-      action(dispatch);
-    } else {
-      dispatch(action);
-    }
-  };
+  const enhancedDispatch = useCallback(
+    action => {
+      if (typeof action === 'function') {
+        console.log('It is a thunk');
+        action(dispatch);
+      } else {
+        dispatch(action);
+      }
+    },
+    [dispatch],
+  );
 
   return [state, enhancedDispatch];
 };
 ```
 
 Now, we just use that reducer instead.
+
+We can have a totally separate function for fetching the data that our state management doesn't know anything about.
+
+```js
+const fetchCharacters = dispatch => {
+  dispatch({ type: 'FETCHING' });
+  fetch(endpoint + '/characters')
+    .then(response => response.json())
+    .then(response => {
+      dispatch({
+        type: 'RESPONSE_COMPLETE',
+        payload: {
+          characters: response.characters,
+        },
+      });
+    })
+    .catch(error => dispatch({ type: error, payload: { error } }));
+};
+```
+
+#### Exercise: Implementing Character Search
+
+There is a `CharacterSearch` component. Can you you implement a feature where we update the list based on the search field?
+
+```js
+import React from 'react';
+import endpoint from './endpoint';
+
+const SearchCharacters = React.memo(({ dispatch }) => {
+  const [query, setQuery] = React.useState('');
+
+  React.useEffect(() => {
+    dispatch({ type: 'FETCHING' });
+    fetch(endpoint + '/search/' + query)
+      .then(response => response.json())
+      .then(response => {
+        dispatch({
+          type: 'RESPONSE_COMPLETE',
+          payload: {
+            characters: response.characters,
+          },
+        });
+      })
+      .catch(error => dispatch({ type: error, payload: { error } }));
+  }, [query, dispatch]);
+
+  return (
+    <input
+      onChange={event => setQuery(event.target.value)}
+      placeholder="Search Here"
+      type="search"
+      value={query}
+    />
+  );
+});
+
+export default SearchCharacters;
+```
 
 ## The Perils of `useEffect` and Dependencies
 
