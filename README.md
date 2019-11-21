@@ -277,17 +277,55 @@ const useThunkReducer = (reducer, initialState) => {
 
 Now, we just use that reducer instead.
 
----
+## The Perils of `useEffect` and Dependencies
+
+We're going to need to important more things.
 
 ```js
-useEffect(() => {
-  console.log('Fetching');
-  fetch(`${endpoint}/search/${query}`)
-    .then(response => response.json())
-    .then(response => {
-      console.log({ response });
-      setCharacters(Object.values(response.characters));
-    })
-    .catch(console.error);
-}, [query]);
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import CharacterList from './CharacterList';
+import CharacterView from './CharacterView';
+```
+
+Now, we'll add this little tidbit.
+
+```js
+<section className="CharacterView">
+  <Route path="/characters/:id" component={CharacterView} />
+</section>
+```
+
+In `CharacterView`, we'll do the following refactoring:
+
+```js
+const CharacterView = ({ match }) => {
+  const [character, setCharacter] = useState({});
+
+  useEffect(() => {
+    fetch(endpoint + '/characters/' + match.params.id)
+      .then(response => response.json())
+      .then(response => setCharacter(response.character))
+      .catch(console.error);
+  }, []);
+
+  // …
+};
+```
+
+I have an ESLint plugin that solves most of this for us.
+
+```js
+const CharacterView = ({ match }) => {
+  const [character, setCharacter] = useState({});
+
+  useEffect(() => {
+    fetch(endpoint + '/characters/' + match.params.id)
+      .then(response => response.json())
+      .then(response => setCharacter(response.character))
+      .catch(console.error);
+  }, []);
+
+  // …
+};
 ```
