@@ -254,6 +254,8 @@ const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
 
 ## Despensing Asynchronous Actions
 
+**Important**: We're going to check out the `asynchronous-actions` branch.
+
 How could we right a simple thunk reducer?
 
 ```js
