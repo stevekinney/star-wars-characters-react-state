@@ -10,9 +10,7 @@ import dummyData from './dummy-data';
 import './styles.scss';
 
 const Application = () => {
-  const [characters, setCharacters] = useState(
-    Object.values(dummyData.characters),
-  );
+  const [characters, setCharacters] = useState(dummyData);
 
   return (
     <div className="Application">
