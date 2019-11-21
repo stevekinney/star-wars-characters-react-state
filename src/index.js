@@ -8,9 +8,50 @@ import CharacterList from './CharacterList';
 import dummyData from './dummy-data';
 
 import './styles.scss';
+import endpoint from './endpoint';
+
+const useFetch = url => {
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  React.useEffect(() => {
+    setLoading(true);
+    setResponse(null);
+    setError(null);
+
+    const fetchUrl = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        setResponse(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUrl();
+
+    // fetch(endpoint + '/characters')
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     setLoading(false);
+    //     setResponse(response);
+    //   })
+    //   .catch(error => {
+    //     setLoading(false);
+    //     setError(error);
+    //   });
+  }, []);
+
+  return [response, loading, error];
+};
 
 const Application = () => {
-  const [characters, setCharacters] = useState(dummyData);
+  const [response, loading, error] = useFetch(endpoint + '/characters');
+  const characters = (response && response.characters) || [];
 
   return (
     <div className="Application">
@@ -19,7 +60,12 @@ const Application = () => {
       </header>
       <main>
         <section className="sidebar">
-          <CharacterList characters={characters} />
+          {loading ? (
+            <p>Loading…</p>
+          ) : (
+            <CharacterList characters={characters} />
+          )}
+          {error && <p className="error">{error.message}</p>}
         </section>
       </main>
     </div>
