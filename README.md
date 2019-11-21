@@ -191,6 +191,8 @@ useEffect(() => {
 };
 ```
 
+I don't like this, but you might.
+
 ## Refactoring to a Reducer
 
 ```js
@@ -249,6 +251,29 @@ const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
   return [result, loading, error];
 };
 ```
+
+## Despensing Asynchronous Actions
+
+How could we right a simple thunk reducer?
+
+```js
+const useThunkReducer = (reducer, initialState) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const enhancedDispatch = action => {
+    if (typeof action === 'function') {
+      console.log('It is a thunk');
+      action(dispatch);
+    } else {
+      dispatch(action);
+    }
+  };
+
+  return [state, enhancedDispatch];
+};
+```
+
+Now, we just use that reducer instead.
 
 ---
 

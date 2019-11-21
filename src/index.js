@@ -5,18 +5,42 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import CharacterList from './CharacterList';
 
-import dummyData from './dummy-data';
+import endpoint from './endpoint';
 
 import './styles.scss';
 
 const reducer = (state, action) => {
+  if (action.type === 'FETCHING') {
+    return {
+      characters: [],
+      loading: true,
+      error: null,
+    };
+  }
+
+  if (action.type === 'RESPONSE_COMPLETE') {
+    return {
+      characters: action.payload.characters,
+      loading: false,
+      error: null,
+    };
+  }
+
+  if (action.type === 'ERROR') {
+    return {
+      characters: [],
+      loading: false,
+      error: action.payload.error,
+    };
+  }
+
   return state;
 };
 
 const initialState = {
   error: null,
   loading: false,
-  characters: Object.values(dummyData),
+  characters: [],
 };
 
 const Application = () => {
@@ -30,6 +54,7 @@ const Application = () => {
       </header>
       <main>
         <section className="sidebar">
+          <button onClick={() => {}}>Fetch Characters</button>
           <CharacterList characters={characters} />
         </section>
       </main>
