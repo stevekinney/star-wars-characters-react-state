@@ -28,7 +28,7 @@ Adding a bracket will make this less bad.
 ```js
 useEffect(() => {
   console.log('Fetching');
-  fetch(`${endpoint}api/characters`)
+  fetch(`${endpoint}/characters`)
     .then(response => response.json())
     .then(response => {
       console.log({ response });
@@ -44,19 +44,6 @@ But we can burn that bridge later.
 
 Okay, but we want this to run every time the search term changes.
 
-```js
-useEffect(() => {
-  console.log('Fetching');
-  fetch(`${endpoint}/search/${query}`)
-    .then(response => response.json())
-    .then(response => {
-      console.log({ response });
-      setCharacters(Object.values(response.characters));
-    })
-    .catch(console.error);
-}, [query]);
-```
-
 ## Adding Loading and Error States
 
 We'll need to keep track of that state.
@@ -69,7 +56,14 @@ const [error, setError] = useState(error);
 Updating the fetch effect.
 
 ```js
-fetch(`${endpoint}/search/${query}`)
+useEffect(() => {
+  console.log('Fetching');
+
+  setLoading(true);
+  setError(null);
+  setCharacters([]);
+
+  fetch(`${endpoint}/characters`)
     .then(response => response.json())
     .then(response => {
       setCharacters(Object.values(response.characters));
@@ -78,69 +72,126 @@ fetch(`${endpoint}/search/${query}`)
     .catch(error => {
       setError(error);
       setLoading(false);
-      setCharacters([]);
     });
-}, [query]);
+}, []);
 ```
 
 ### Displaying It In The Component
 
 ```js
-return (
-  <div className="Application">
-    <h1>Star Wars Characters</h1>
-    <SearchCharacters query={query} onChange={handleQueryChange} />
-    {loading ? (
-      <p className="loading">Loading…</p>
-    ) : (
-      <Characters characters={characters} />
-    )}
-    {error && <p className="error">{error.message}</p>}
-  </div>
-);
+<section className="sidebar">
+  {loading ? (
+    <p className="loading">Loading…</p>
+  ) : (
+    <Characters characters={characters} />
+  )}
+  {error && <p className="error">{error.message}</p>}
+</section>
 ```
 
 ## Creating a Custom Hook
 
 ```js
-const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
-  const [result, setResult] = useState([]);
+const useFetch = url => {
+  const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log('Fetching');
+
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
     fetch(url)
       .then(response => response.json())
       .then(response => {
-        setResult(formatResponse(response));
+        setResponse(response);
         setLoading(false);
       })
       .catch(error => {
         setError(error);
         setLoading(false);
-        setResult([]);
       });
-  }, dependencies);
+  }, [url]);
 
-  return [result, loading, error];
+  return [response, loading, error];
 };
 ```
 
-Then, in the component.
+### Adding the Formatting in There
+
+Let's break that out into a function.
+
+```js
+const formatData = response => (response && response.characters) || [];
+```
+
+Then we can use it like this.
 
 ```js
 const [characters, loading, error] = useFetch(
-  `${endpoint}/search/${query}`,
-  [query],
-  response => Object.values(response.characters),
+  endpoint + '/characters',
+  formatData,
 );
 ```
 
+We can add that to our `useEffect`.
+
+```js
+useEffect(() => {
+  console.log('Fetching');
+
+  setLoading(true);
+  setError(null);
+  setResponse(null);
+
+  fetch(url)
+    .then(response => response.json())
+    .then(response => {
+      setResponse(formatData(response));
+      setLoading(false);
+    })
+    .catch(error => {
+      setError(error);
+      setLoading(false);
+    });
+}, [url, formatData]);
+```
+
+## Using an Async Function
+
+You can't pass an async function directly to `useEffect`.
+
+```js
+useEffect(() => {
+    console.log('Fetching');
+
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
+    const get = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        setResponse(formatData(data));
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    get();
+  }, [url, formatData]);
+
+  return [response, loading, error];
+};
+```
+
 ## Refactoring to a Reducer
-
-Writing a reducer
-
-**TODO**: Refactor this out into an exercise with tests and let the students implement it.
 
 ```js
 const fetchReducer = (state, action) => {
@@ -191,10 +242,25 @@ const useFetch = (url, dependencies = [], formatResponse = () => {}) => {
       .catch(error => {
         dispatch({ type: 'ERROR', payload: { error } });
       });
-  }, dependencies);
+  }, [url, formatResponse]);
 
   const { result, loading, error } = state;
 
   return [result, loading, error];
 };
+```
+
+---
+
+```js
+useEffect(() => {
+  console.log('Fetching');
+  fetch(`${endpoint}/search/${query}`)
+    .then(response => response.json())
+    .then(response => {
+      console.log({ response });
+      setCharacters(Object.values(response.characters));
+    })
+    .catch(console.error);
+}, [query]);
 ```
