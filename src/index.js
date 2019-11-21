@@ -2,9 +2,12 @@ import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import isFunction from 'lodash/isFunction';
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CharacterList from './CharacterList';
+import CharacterView from './CharacterView';
+
+import endpoint from './endpoint';
 
 import dummyData from './dummy-data';
 
@@ -95,6 +98,9 @@ const Application = () => {
             Fetch Characters
           </button>
           <CharacterList characters={characters} />
+        </section>
+        <section className="CharacterView">
+          <Route path="/characters/:id" component={CharacterView} />
         </section>
       </main>
     </div>
