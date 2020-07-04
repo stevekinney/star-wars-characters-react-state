@@ -83,7 +83,7 @@ useEffect(() => {
   {loading ? (
     <p className="loading">Loading…</p>
   ) : (
-    <Characters characters={characters} />
+    <CharacterList characters={characters} />
   )}
   {error && <p className="error">{error.message}</p>}
 </section>
