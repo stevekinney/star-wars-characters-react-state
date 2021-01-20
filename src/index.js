@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import CharacterList from './CharacterList';
-
-//import dummyData from './dummy-data';
+import endpoint from './endpoint';
 
 import './styles.scss';
-
-import endpoint from './endpoint';
 
 const initialState = {
   result: null,
@@ -17,7 +13,6 @@ const initialState = {
   error: null,
 };
 
-// Making these constants to avoid typing errors
 const LOADING = 'LOADING';
 const RESPONSE_COMPLETE = 'RESPONSE_COMPLETE';
 const ERROR = 'ERROR';
@@ -52,45 +47,20 @@ const fetchReducer = (state, action) => {
 const useFetch = url => {
   const [state, dispatch] = React.useReducer(fetchReducer, initialState);
 
-/*   const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); */
-
   React.useEffect(() => {
     dispatch({ type: LOADING });
-
-
-/*     //in case there's a refresh button
-    setLoading(true);
-    setResponse(null);
-    setError(null); */
 
     const fetchUrl = async () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        //setResponse(data);
         dispatch({ type: RESPONSE_COMPLETE, payload: { response: data } });
       } catch (error){
         dispatch({ type: ERROR, payload: { error } });
-      }/*  finally {
-        setLoading(false);
-      } */
+      }
     };
 
     fetchUrl();
-
-/*     fetch(url)
-      .then(response => response.json())
-      .then(response => {
-        setLoading(false);
-        setResponse(response);
-      })
-      .catch(error =>  {
-        setLoading(false);
-        setError(error);
-      }); */
-
   }, []);
 
   return [state.result, state.loading, state.error];
@@ -99,28 +69,7 @@ const useFetch = url => {
 const Application = () => {
   const [response, loading, error] = useFetch(endpoint + '/people/');
   const characters = (response && response.results) || [];
-//   const [characters, setCharacters] = useState(dummyData);
-/*   const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  React.useEffect(() => {
-    //in case there's a refresh button
-    setLoading(true);
-    setCharacters([]);
-    setError(null);
-
-    fetch(endpoint + '/people/')
-      .then(response => response.json())
-      .then(response => {
-        setLoading(false);
-        setCharacters(response.results);
-      })
-      .catch(error =>  {
-        setLoading(false);
-        setError(error);
-      });
-    }, []); */
   return (
     <div className="Application">
       <header>
