@@ -73,15 +73,15 @@ const Application = () => {
   return (
     <div className="Application">
       <header>
-        <h1>Star Wars Characters</h1>
+        <h1 className="header">Star Wars Characters</h1>
       </header>
       <main>
         <section className="sidebar">
           {
-            loading ? <p>Loading...</p>
+            loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
             : <CharacterList characters={characters} />
           }
-          {error && <p className="error">Opps something went wrong... {error.message}</p>}
+          {error && <div className="error"><h2>Opps! something went wrong...</h2><p>{error.message}</p></div>}
         </section>
       </main>
     </div>
