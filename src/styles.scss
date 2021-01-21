@@ -2,7 +2,7 @@ $color-green: rgb(28, 209, 83);
 $danger-color: #f0544f;
 $control-color: #c79528;
 $font-color: #28283d;
-$color-yellow: #fee123;
+$color-yellow: hsl(52, 85%, 57%);
 $color-red: #fa2518;
 
 @mixin input-style($color) {
@@ -62,7 +62,7 @@ body {
   margin: 0;
   padding: 0;
   height: 90vh;
-  background: radial-gradient(circle, black 15%, hsl(240, 48%, 5%) );
+  background: radial-gradient(circle, rgb(0, 0, 0) 15%, hsl(240, 46%, 15%) );
 }
 
 body,
@@ -105,6 +105,7 @@ input[type='submit'] {
 }
 
 .Application {
+  z-index: 100;
   h1 {
     @include box-shadow();
     padding: 1em;
@@ -175,4 +176,8 @@ input[type='submit'] {
   flex-direction: column;
   align-items:  center;
   color: $color-red;
+}
+
+.stars {
+  z-index: -1;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import StarfieldAnimation from 'react-starfield-animation';
 
 import CharacterList from './CharacterList';
 import endpoint from './endpoint';
@@ -71,6 +72,15 @@ const Application = () => {
   const characters = (response && response.results) || [];
 
   return (
+  <>
+  
+  <StarfieldAnimation
+    className="stars"
+    style={{
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    }}/>
     <div className="Application">
       <header>
         <h1 className="header">Star Wars Characters</h1>
@@ -85,6 +95,7 @@ const Application = () => {
         </section>
       </main>
     </div>
+  </>
   );
 };
 
