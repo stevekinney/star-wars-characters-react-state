@@ -39,16 +39,14 @@ $color-red: #fa2518;
 @keyframes animation-header {
   0% {
     transform: scale(0);
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-    -webkit-text-fill-color: transparent;
+    color: transparent; 
   }
   60% {
     transform: scale(.8);
-    -webkit-text-stroke: 1px $color-yellow;
   }
   100% {
     transform: scale(1);
-    -webkit-text-fill-color: $color-yellow;
+    color: $color-yellow;
   }
 }
 
@@ -62,7 +60,7 @@ body {
   margin: 0;
   padding: 0;
   height: 90vh;
-  background: radial-gradient(circle, rgb(0, 0, 0) 15%, hsl(240, 46%, 15%) );
+  background: radial-gradient(circle, rgb(0, 0, 0) 15%, hsl(240, 46%, 8%) );
 }
 
 body,
@@ -147,11 +145,16 @@ input[type='submit'] {
   display: block;
   padding: 1em;
   transition: all 200ms;
+  animation: 1500ms animation-glitch;
+
   &:hover{
     background: rgba($color-green, .1);
   }
   &.active {
     background-color: lighten($color-green, 2%);
+    letter-spacing: .04em;
+    font-weight: bold;
+    text-transform: uppercase;
     color: black;
     transition: all 150ms;
   }
@@ -173,11 +176,147 @@ input[type='submit'] {
 
 .error {
   display: flex;
-  flex-direction: column;
-  align-items:  center;
+  justify-content: center;
+  align-items: center;
   color: $color-red;
+  p {
+    margin-left: .4em;
+    color: rgba($color-red, .8)
+  }
 }
 
 .stars {
   z-index: -1;
 }
+
+@keyframes animation-glitch {
+  0% {
+   -webkit-transform:translateZ(0) rotate(-2deg);
+   transform:translateZ(0) rotate(-2deg);
+   -webkit-clip-path:polygon(0 2%,100% 2%,100% 5%,0 5%);
+   clip-path:polygon(0 2%,100% 2%,100% 5%,0 5%)
+  }
+  2% {
+   -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+   clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+   -webkit-transform:translate(-5px) rotate(33deg);
+   transform:translate(-5px) rotate(33deg)
+  }
+  6% {
+    -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    -webkit-transform:translate(5px) rotate(-40deg);
+    transform:translate(5px) rotate(-40deg)
+  }
+  8% {
+    -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    -webkit-transform:translate(-5px) rotate(20deg);
+    transform:translate(-5px) rotate(20deg)
+  }
+  9% {
+   -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+   clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+   -webkit-transform:translate(0) rotate(-5deg);
+   transform:translate(0) rotate(-5deg)
+  }
+  10% {
+    -webkit-clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
+    clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
+    -webkit-transform:translate3d(5px,0,0) rotate(-2deg);
+    transform:translate3d(5px,0,0) rotate(-2deg)
+  }
+  13% {
+   -webkit-clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
+   clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
+   -webkit-transform:translateZ(0) rotate(-12deg);
+   transform:translateZ(0) rotate(-12deg)
+  }
+  13.1% {
+    -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+    clip-path:polygon(0 0,0 0,0 0,0 0);
+    -webkit-transform:translate3d(5px,0,0) rotate(-32deg);
+    transform:translate3d(5px,0,0) rotate(-32deg)
+  }
+  15% {
+    -webkit-clip-path:polygon(0 60%,100% 60%,100% 40%,0 40%);
+    clip-path:polygon(0 60%,100% 60%,100% 40%,0 40%);
+    -webkit-transform:translate3d(5px,0,0) rotate(-21deg);
+    transform:translate3d(5px,0,0) rotate(-21deg)
+  }
+  20% {
+    -webkit-clip-path:polygon(0 60%,100% 60%,100% 40%,0 40%);
+    clip-path:polygon(0 60%,100% 60%,100% 40%,0 40%);
+    -webkit-transform:translate3d(-5px,0,0) rotate(-12deg);
+    transform:translate3d(-5px,0,0) rotate(-12deg)
+  }
+  20.1% {
+   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+   clip-path:polygon(0 0,0 0,0 0,0 0);
+   -webkit-transform:translate3d(5px,0,0) rotate(-10deg);
+   transform:translate3d(5px,0,0) rotate(-10deg)
+  }
+  25% {
+   -webkit-clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+   clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+   -webkit-transform:translate3d(5px,0,0) rotate(5deg);
+   transform:translate3d(5px,0,0) rotate(5deg)
+  }
+  30% {
+   -webkit-clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+   clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+   -webkit-transform:translate3d(-5px,0,0) rotate(-7deg);
+   transform:translate3d(-5px,0,0) rotate(-7deg)
+  }
+  30.1% {
+   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+   clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg)
+  }
+  35% {
+   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   -webkit-transform:translate(-5px) rotate(-2deg);
+   transform:translate(-5px) rotate(-2deg)
+  }
+  40% {
+   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   -webkit-transform:translate(5px) rotate(-2deg);
+   transform:translate(5px) rotate(-2deg)
+  }
+  45% {
+   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   -webkit-transform:translate(-5px) rotate(-2deg);
+   transform:translate(-5px) rotate(-2deg)
+  }
+  50% {
+   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+   -webkit-transform:translate(0) rotate(-2deg);
+   transform:translate(0) rotate(-2deg)
+  }
+  55% {
+   -webkit-clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+   clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+   -webkit-transform:translate3d(5px,0,0) rotate(-2deg);
+   transform:translate3d(5px,0,0) rotate(-2deg)
+  }
+  60% {
+   -webkit-clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+   clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+   -webkit-transform:translateZ(0) rotate(-2deg);
+   transform:translateZ(0) rotate(-2deg);
+   opacity:1
+  }
+  60.1% {
+   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+   clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg);
+   opacity:1
+  }
+  to {
+   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+   clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg);
+   opacity:1
+  }
+ }
