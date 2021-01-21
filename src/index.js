@@ -1,10 +1,11 @@
 import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import StarfieldAnimation from 'react-starfield-animation';
 
 import CharacterList from './CharacterList';
+import CharacterView from './CharacterView';
 
 import endpoint from './endpoint';
 
@@ -57,15 +58,18 @@ const initialState = {
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const enhancedDispatch = action => {
-    console.log(action);
+  const enhancedDispatch = React.useCallback(
+    action => {
+      console.log(action);
 
-    if (typeof(action) === 'function') {
-      action(dispatch);
-    } else {
-      dispatch(action);
-    }
-  }
+      if (typeof(action) === 'function') {
+        action(dispatch);
+      } else {
+        dispatch(action);
+      }
+  },
+  [dispatch],
+  );
   return [state, enhancedDispatch];
 }
 
@@ -75,7 +79,7 @@ const Application = () => {
 
   useEffect(() => {
     dispatch(dispatch => {});
-  }, [])
+  }, [dispatch])
 
   return (
     <>
@@ -98,6 +102,9 @@ const Application = () => {
           :<CharacterList characters={characters} />
           }
           {state.error && <div className="error"><p>Opps! something went wrong... a "{state.error.name}" has occured</p></div>}
+        </section>
+        <section className="CharacterView">
+          <Route path="/characters/:id" component={CharacterView}/>
         </section>
       </main>
     </div>
