@@ -178,11 +178,14 @@ input[type='submit'] {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $color-red;
-  p {
-    margin-left: .4em;
-    color: rgba($color-red, .8)
-  }
+  padding: 5em;
+  margin: 2em;
+  border: 2px solid red;
+  background: rgba($color-red, .1);
+  backdrop-filter: blur(3px);
+  color:red;
+  font-size: 1.2em;
+  text-shadow: black .1em .2em .04em;
 }
 
 .stars {

@@ -1,97 +1,85 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+
 import { BrowserRouter as Router } from 'react-router-dom';
-import isFunction from 'lodash/isFunction';
 import StarfieldAnimation from 'react-starfield-animation';
 
 import CharacterList from './CharacterList';
+
 import endpoint from './endpoint';
 
 import './styles.scss';
 
-const initialState = {
-  result: null,
-  loading: true,
-  error: null,
-};
-
-const LOADING = 'LOADING';
-const RESPONSE_COMPLETE = 'RESPONSE_COMPLETE';
-const ERROR = 'ERROR';
-
-const fetchReducer = (state, action) => {
-  if (action.type === LOADING) {
+const reducer = (state, action) => {
+  if (action.type === 'FETCHING') {
     return {
-      result: null,
+      characters: [],
       loading: true,
       error: null,
-    }
+    };
   }
 
-  if (action.type === RESPONSE_COMPLETE) {
+  if (action.type === 'RESPONSE_COMPLETE') {
     return {
-      result: action.payload.response,
+      characters: action.payload.characters,
       loading: false,
       error: null,
-    }
+    };
   }
 
-  if (action.type === ERROR) {
+  if (action.type === 'ERROR') {
     return {
-      result: null,
+      characters: [],
       loading: false,
       error: action.payload.error,
-    }
+    };
   }
+
   return state;
 };
 
-const useFetch = url => {
-  const [state, dispatch] = React.useReducer(fetchReducer, initialState);
-
-  React.useEffect(() => {
-    dispatch({ type: LOADING });
-
-    const fetchUrl = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        dispatch({ type: RESPONSE_COMPLETE, payload: { response: data } });
-      } catch (error){
-        dispatch({ type: ERROR, payload: { error } });
-      }
-    };
-
-    fetchUrl();
-  }, []);
-
-  return [state.result, state.loading, state.error];
+const fetchCharacters = (dispatch) => {
+  dispatch({ type: 'LOADING' });
+  fetch(endpoint + '/people')
+    .then(response => response.json())
+    .then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} 
+  }),
+  )
+  .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
 }
+
+const initialState = {
+  error: null,
+  loading: false,
+  characters: [],
+};
 
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const thunkDispatch = action => {
+  const enhancedDispatch = action => {
     console.log(action);
 
-    if (isFunction(action)) {
+    if (typeof(action) === 'function') {
       action(dispatch);
     } else {
       dispatch(action);
     }
-  };
-
-  return [state, dispatch];
+  }
+  return [state, enhancedDispatch];
 }
 
 const Application = () => {
-  const [response, loading, error] = useFetch(endpoint + '/people/');
-  const characters = (response && response.results) || [];
+  const [state, dispatch] = useThunkReducer(reducer, initialState);
+  const { characters } = state;
+
+  useEffect(() => {
+    dispatch(dispatch => {});
+  }, [])
 
   return (
-  <>
-  
-  <StarfieldAnimation
+    <>
+    <StarfieldAnimation
     className="stars"
     style={{
       position: 'absolute',
@@ -104,15 +92,16 @@ const Application = () => {
       </header>
       <main>
         <section className="sidebar">
+          <button onClick={() => dispatch(fetchCharacters)}>Fetch Characters</button>
           {
-            loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
-            : <CharacterList characters={characters} />
+          state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
+          :<CharacterList characters={characters} />
           }
-          {error && <div className="error"><h2>Opps! something went wrong...</h2><p>{error.name}</p></div>}
+          {state.error && <div className="error"><p>Opps! something went wrong... a "{state.error.name}" has occured</p></div>}
         </section>
       </main>
     </div>
-  </>
+    </>
   );
 };
 
