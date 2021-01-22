@@ -7,12 +7,14 @@ const CharacterView = ({ match }) => {
   useEffect(() => {
     fetch(endpoint + '/people/' + match.params.id)
       .then(response => response.json())
-      .then(response => setCharacter(response.results));
+      .then(response => setCharacter(response.results))
+      .then(response => console.log('PASSED!', response));
+      console.log('CHARVIEW inner',character)
   }, []);
-  console.log(character);
+  console.log('CHARVIEW outer',character);
   return (
     <section className="CharacterView">
-      <h2>{character.name}</h2>
+{/*       <h2>{character.name}</h2>
       <ul className="CharacterDetails">
         <li>
           <strong>Birth Year</strong>: {character.birthYear}
@@ -35,7 +37,7 @@ const CharacterView = ({ match }) => {
         <li>
           <strong>Skin Color</strong>: {character.skinColor}
         </li>
-      </ul>
+      </ul> */}
     </section>
   );
 };

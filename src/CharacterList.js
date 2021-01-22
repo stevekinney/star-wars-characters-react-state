@@ -7,8 +7,9 @@ const CharacterList = ({ characters = [] }) => {
     <section className="CharacterList">
       {
         characters.map(character => {
-          character.id = characters.indexOf(character);
-          return <CharacterListItem key={characters.indexOf(character)} character={character} />
+          character.id = characters.indexOf(character)+1;
+          console.log('INNER Characters in list:', character)
+          return <CharacterListItem key={character.id} character={character} />
         })
       }
     </section>

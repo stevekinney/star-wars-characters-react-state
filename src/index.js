@@ -27,7 +27,7 @@ const reducer = (state, action) => {
       error: null,
     };
   }
-
+  
   if (action.type === 'ERROR') {
     return {
       characters: [],
@@ -35,7 +35,7 @@ const reducer = (state, action) => {
       error: action.payload.error,
     };
   }
-
+  
   return state;
 };
 
@@ -44,8 +44,9 @@ const fetchCharacters = (dispatch) => {
   fetch(endpoint + '/people')
     .then(response => response.json())
     .then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} 
-  }),
-  )
+      }), console.log('TESTING')
+    )
+    //.then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} }))
   .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
 }
 
