@@ -84,31 +84,25 @@ const Application = () => {
 
   return (
     <>
-    <StarfieldAnimation
-    className="stars"
-    style={{
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-    }}/>
-    <div className="Application">
-      <header>
-        <h1 className="header">Star Wars Characters</h1>
-      </header>
-      <main>
-        <section className="sidebar">
-          <button onClick={() => dispatch(fetchCharacters)}>Fetch Characters</button>
-          {
-          state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
-          :<CharacterList characters={characters} />
-          }
-          {state.error && <div className="error"><p>Opps! something went wrong... a "{state.error.name}" has occured</p></div>}
-        </section>
-        <section className="CharacterView">
-          <Route path="/characters/:id" component={CharacterView}/>
-        </section>
-      </main>
-    </div>
+    <StarfieldAnimation className="stars"/>
+      <div className="Application">
+        <header>
+          <h1 className="header">Star Wars Characters</h1>
+        </header>
+        <main>
+          <section className="sidebar">
+            <button className="button-fetch" onClick={() => dispatch(fetchCharacters)}>Fetch Characters</button>
+            {
+            state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
+            :<CharacterList characters={characters} />
+            }
+            {state.error && <div className="error"><p>Opps! something went wrong... a "{state.error.name}" has occured</p></div>}
+          </section>
+          <section className="CharacterView">
+            <Route path="/characters/:id" component={CharacterView}/>
+          </section>
+        </main>
+      </div>
     </>
   );
 };

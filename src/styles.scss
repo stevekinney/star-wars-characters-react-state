@@ -130,9 +130,23 @@ input[type='submit'] {
 }
 
 .CharacterView {
-  padding: 0 2em;
+  visibility: collapse;
+  margin: .5em 2em;
+  padding: 1.4em 2em;
   flex: 3;
   width: 100%;
+  color: $color-green;
+  text-decoration: none;
+  border: 1px solid $color-green;
+  .CharacterDetails {
+    padding: .6em;
+  }
+}
+
+.visible {
+  visibility: visible;
+  animation: 1500ms animation-glitch;
+  transition: all 200ms;
 }
 
 .CharacterListItem {
@@ -169,6 +183,10 @@ input[type='submit'] {
   }
 }
 
+.button-fetch{
+  animation: 1500ms animation-fade;
+}
+
 .loading {
   font-family: 'Raleway', sans-serif;
   font-size: 5em;
@@ -191,7 +209,15 @@ input[type='submit'] {
 
 .stars {
   z-index: -10;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(circle, rgb(0, 0, 0) 15%, hsl(240, 46%, 15%) );
+}
+
+@keyframes animation-fade {
+  from { transform: scale(0);}
+  to { transform: scale(1);}
 }
 
 @keyframes animation-glitch {

@@ -3,30 +3,29 @@ import endpoint from './endpoint';
 
 const CharacterView = ({ match }) => {
   const [character, setCharacter] = useState({});
+  let test;
 
   useEffect(() => {
     fetch(endpoint + '/people/' + match.params.id)
       .then(response => response.json())
-      .then(response => setCharacter(response.results))
-      .then(response => console.log('PASSED!', response));
-      console.log('CHARVIEW inner',character)
-  }, []);
-  console.log('CHARVIEW outer',character);
+      .then(response => setCharacter(response))
+      .then(console.log('Caracter?', character));
+  }, [match.params.id]);
   return (
-    <section className="CharacterView">
-{/*       <h2>{character.name}</h2>
+    <>
+      <h2>{character.name}</h2>
       <ul className="CharacterDetails">
         <li>
-          <strong>Birth Year</strong>: {character.birthYear}
+          <strong>Birth Year</strong>: {character.birth_year}
         </li>
         <li>
-          <strong>Eye Color</strong>: {character.eyeColor}
+          <strong>Eye Color</strong>: {character.eye_color}
         </li>
         <li>
           <strong>Gender</strong>: {character.gender}
         </li>
         <li>
-          <strong>Hair Color</strong>: {character.hairColor}
+          <strong>Hair Color</strong>: {character.hair_color}
         </li>
         <li>
           <strong>Heigh</strong>: {character.height}
@@ -35,10 +34,10 @@ const CharacterView = ({ match }) => {
           <strong>Mass</strong>: {character.mass}
         </li>
         <li>
-          <strong>Skin Color</strong>: {character.skinColor}
+          <strong>Skin Color</strong>: {character.skin_color}
         </li>
-      </ul> */}
-    </section>
+      </ul>
+    </>
   );
 };
 
