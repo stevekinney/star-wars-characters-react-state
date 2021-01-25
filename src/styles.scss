@@ -133,8 +133,9 @@ input[type='submit'] {
   visibility: collapse;
   margin: .5em 2em;
   padding: 1.4em 2em;
-  flex: 3;
+  flex: 2;
   width: 100%;
+  height: 60%;
   color: $color-green;
   text-decoration: none;
   border: 1px solid $color-green;
@@ -143,10 +144,26 @@ input[type='submit'] {
   }
 }
 
-.visible {
-  visibility: visible;
+.glitched {
   animation: 1500ms animation-glitch;
-  transition: all 200ms;
+}
+
+.CharacterList {
+  height: 65%;
+  visibility: collapse;
+  overflow:hidden;
+  overflow-y:scroll;
+  scrollbar-color: $color-green rgba($font-color,.3);
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: .5em;
+    background-color: rgba($font-color,.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-green;
+    height: 60%;
+    border: .01em solid $font-color;
+  }
 }
 
 .CharacterListItem {
@@ -213,6 +230,11 @@ input[type='submit'] {
   width: 100%;
   height: 100%;
   background: radial-gradient(circle, rgb(0, 0, 0) 15%, hsl(240, 46%, 15%) );
+}
+
+.visible {
+  visibility: visible;
+  transition: all 200ms;
 }
 
 @keyframes animation-fade {

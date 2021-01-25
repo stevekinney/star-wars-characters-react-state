@@ -44,11 +44,14 @@ const fetchCharacters = (dispatch) => {
   fetch(endpoint + '/people')
     .then(response => response.json())
     .then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} 
-      }), console.log('TESTING')
+      }),
     )
     //.then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} }))
   .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
+  return document.querySelector(".CharacterList").classList.add("visible");
 }
+
+
 
 const initialState = {
   error: null,

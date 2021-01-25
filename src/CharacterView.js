@@ -3,7 +3,6 @@ import endpoint from './endpoint';
 
 const CharacterView = ({ match }) => {
   const [character, setCharacter] = useState({});
-  let test;
 
   useEffect(() => {
     fetch(endpoint + '/people/' + match.params.id)
