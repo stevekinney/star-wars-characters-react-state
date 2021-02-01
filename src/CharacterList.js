@@ -7,7 +7,9 @@ const CharacterList = ({ characters = [] }) => {
     <section className="CharacterList">
       {
         characters.map(character => {
-          character.id = characters.indexOf(character)+1;
+          if (!character.id) {
+            character.id = characters.indexOf(character)+1;
+          }
           return <CharacterListItem key={character.id} character={character} />
         })
       }

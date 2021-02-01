@@ -7,8 +7,7 @@ const CharacterView = ({ match }) => {
   useEffect(() => {
     fetch(endpoint + '/people/' + match.params.id)
       .then(response => response.json())
-      .then(response => setCharacter(response))
-      .then(console.log('Caracter?', character));
+      .then(response => setCharacter(response));
   }, [match.params.id]);
   return (
     <>

@@ -6,7 +6,7 @@ import StarfieldAnimation from 'react-starfield-animation';
 
 import CharacterList from './CharacterList';
 import CharacterView from './CharacterView';
-
+import dummyData from './dummy-data';
 import endpoint from './endpoint';
 
 import './styles.scss';
@@ -46,12 +46,9 @@ const fetchCharacters = (dispatch) => {
     .then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} 
       }),
     )
-    //.then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} }))
   .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
   return document.querySelector(".CharacterList").classList.add("visible");
 }
-
-
 
 const initialState = {
   error: null,
@@ -64,8 +61,6 @@ const useThunkReducer = (reducer, initialState) => {
 
   const enhancedDispatch = React.useCallback(
     action => {
-      console.log(action);
-
       if (typeof(action) === 'function') {
         action(dispatch);
       } else {
@@ -78,8 +73,10 @@ const useThunkReducer = (reducer, initialState) => {
 }
 
 const Application = () => {
+  const [ dummyCharacters, setDummyCharacters ] = React.useState(dummyData)
   const [state, dispatch] = useThunkReducer(reducer, initialState);
   const { characters } = state;
+
 
   useEffect(() => {
     dispatch(dispatch => {});
@@ -97,9 +94,10 @@ const Application = () => {
             <button className="button-fetch" onClick={() => dispatch(fetchCharacters)}>Fetch Characters</button>
             {
             state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
+            : state.error ? <CharacterList characters={dummyCharacters} />
             :<CharacterList characters={characters} />
             }
-            {state.error && <div className="error"><p>Opps! something went wrong... a "{state.error.name}" has occured</p></div>}
+            {}
           </section>
           <section className="CharacterView">
             <Route path="/characters/:id" component={CharacterView}/>
