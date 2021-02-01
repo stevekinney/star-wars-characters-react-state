@@ -73,7 +73,7 @@ const useThunkReducer = (reducer, initialState) => {
 }
 
 const Application = () => {
-  const [ dummyCharacters, setDummyCharacters ] = React.useState(dummyData)
+  const [ dummyCharacters, setDummyCharacters ] = React.useState(dummyData);
   const [state, dispatch] = useThunkReducer(reducer, initialState);
   const { characters } = state;
 
