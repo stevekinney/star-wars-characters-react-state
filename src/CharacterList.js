@@ -8,7 +8,7 @@ const CharacterList = ({ characters = [] }) => {
       {
         characters.map(character => {
           if (!character.id) {
-            character.id = characters.indexOf(character)+1;
+            character.id = characters.indexOf(character);
           }
           return <CharacterListItem key={character.id} character={character} />
         })
