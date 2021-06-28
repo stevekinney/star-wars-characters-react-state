@@ -87,6 +87,28 @@ const dummyData = [
     mass: 32,
     birthYear: null,
   },
+  {
+    id: 9,
+    name: 'Biggs Darklighter',
+    gender: 'male',
+    skinColor: 'light',
+    hairColor: 'black',
+    height: 183,
+    eyeColor: 'brown',
+    mass: 84,
+    birthYear: '24BBY',
+  },
+  {
+    id: 10,
+    name: 'Obi-Wan Kenobi',
+    gender: 'male',
+    skinColor: 'fair',
+    hairColor: 'auburn, white',
+    height: 182,
+    eyeColor: 'blue-gray',
+    mass: 77,
+    birthYear: '57BBY',
+  },
 ];
 
 export default dummyData;
