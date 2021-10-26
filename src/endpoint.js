@@ -1,1 +1,1 @@
-export default 'https://swapi.dev/api';
+export default 'https://swapi.dev/api/';

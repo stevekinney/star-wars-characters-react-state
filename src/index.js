@@ -6,7 +6,7 @@ import StarfieldAnimation from 'react-starfield-animation';
 
 import CharacterList from './CharacterList';
 import CharacterView from './CharacterView';
-import dummyData from './dummy-data';
+/* import dummyData from './dummy-data'; */
 import endpoint from './endpoint';
 
 import './styles.scss';
@@ -41,11 +41,11 @@ const reducer = (state, action) => {
 
 const fetchCharacters = (dispatch) => {
   dispatch({ type: 'LOADING' });
-  fetch(endpoint + '/people')
+  fetch(endpoint + 'people')
     .then(response => response.json())
-    .then(response => dispatch({ type: 'RESPONSE_COMPLETE', payload: {characters: response.results} 
-      }),
-    )
+    .then(response => dispatch({ 
+      type: 'RESPONSE_COMPLETE', payload: { characters: response.results } 
+    }))
   .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
   return document.querySelector(".CharacterList").classList.add("visible");
 }
@@ -73,8 +73,8 @@ const useThunkReducer = (reducer, initialState) => {
 }
 
 const Application = () => {
-  const [ dummyCharacters, setDummyCharacters ] = React.useState(dummyData);
-  const [state, dispatch] = useThunkReducer(reducer, initialState);
+ /*  const [ dummyCharacters, setDummyCharacters ] = React.useState(dummyData); */
+  const [ state, dispatch ] = useThunkReducer(reducer, initialState);
   const { characters } = state;
 
 
@@ -94,7 +94,7 @@ const Application = () => {
             <button className="button-fetch" onClick={() => dispatch(fetchCharacters)}>Fetch Characters</button>
             {
             state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
-            : state.error ? <CharacterList characters={dummyCharacters} />
+/*             : state.error ? <CharacterList characters={dummyCharacters} /> */
             :<CharacterList characters={characters} />
             }
             {}
