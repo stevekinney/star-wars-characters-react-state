@@ -98,7 +98,7 @@ const Application = () => {
             {
                state.characters.length === 0 && state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
               /* : dispatch.error ? <CharacterList characters={dummyCharacters} /> */
-              : state.characters.length === 0 && state.error ? <div className="error"><h2>Ups! Something happened</h2><p>{state.error.message}</p></div>
+              : state.characters.length === 0 && state.error ? <div className="error"><h2>Ups! Something happened...</h2><p>{state.error.message}</p></div>
               //: state.characters.length > 0 ? <CharacterList characters={characters} />
               : console.log('')
             }
