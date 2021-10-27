@@ -40,13 +40,16 @@ const reducer = (state, action) => {
 };
 
 const fetchCharacters = (dispatch) => {
-  dispatch({ type: 'LOADING' });
+  dispatch({ type: 'FETCHING' });
   fetch(endpoint + 'people')
-    .then(response => response.json())
-    .then(response => dispatch({ 
-      type: 'RESPONSE_COMPLETE', payload: { characters: response.results } 
-    }))
+  .then(response => response.json())
+  .then(response => {dispatch({ 
+    type: 'RESPONSE_COMPLETE', payload: { characters: response.results } 
+  });
+  })
   .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
+  
+  /* console.log('test', dispatch ); */
   return document.querySelector(".CharacterList").classList.add("visible");
 }
 
@@ -91,13 +94,17 @@ const Application = () => {
         </header>
         <main>
           <section className="sidebar">
-            <button className="button-fetch" onClick={() => dispatch(fetchCharacters)}>Fetch Characters</button>
+            <button className="button-fetch" onClick={ () => dispatch(fetchCharacters) }>Fetch Characters</button>
             {
-            state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
-/*             : state.error ? <CharacterList characters={dummyCharacters} /> */
-            :<CharacterList characters={characters} />
+               state.characters.length === 0 && state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
+              /* : dispatch.error ? <CharacterList characters={dummyCharacters} /> */
+              : state.characters.length === 0 && state.error ? <div className="error"><h2>Ups! Something happened</h2><p>{state.error.message}</p></div>
+              //: state.characters.length > 0 ? <CharacterList characters={characters} />
+              : console.log('')
             }
-            {}
+            {
+              <CharacterList characters={characters} />
+            }
           </section>
           <section className="CharacterView">
             <Route path="/characters/:id" component={CharacterView}/>
