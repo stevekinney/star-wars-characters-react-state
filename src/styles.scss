@@ -104,19 +104,19 @@ input[type='submit'] {
 
 .Application {
   z-index: 10;
+  margin: 0 auto;
+  max-width: 800px;
   h1 {
     @include box-shadow();
     padding: 1em;
     text-align: center;
     color: $color-yellow;
     &.header {
-      padding: 0;
+      padding: 2rem 0 4rem;
       font-size: 4em;
       animation: .6s animation-header ease-out; 
     }
   }
-  margin: 0 auto;
-  max-width: 800px;
 
   main {
     display: flex;
@@ -135,7 +135,7 @@ input[type='submit'] {
   padding: 1.4em 2em;
   flex: 2;
   width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   color: $color-green;
   text-decoration: none;
   border: 1px solid $color-green;
@@ -213,16 +213,22 @@ input[type='submit'] {
 
 .error {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   padding: 5em;
   margin: 2em;
+  margin-top: 5rem;
   border: 2px solid red;
   background: rgba($color-red, .1);
   backdrop-filter: blur(3px);
   color:red;
-  font-size: 1.2em;
-  text-shadow: black .1em .2em .04em;
+  & h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+  & p {
+    font-size: 1.2rem;
+  }
 }
 
 .stars {
@@ -238,6 +244,49 @@ input[type='submit'] {
   transition: all 200ms;
 }
 
+@media (max-width: 480px){
+  header h1.header {
+    padding: 1rem 0 2rem !important;
+    font-size: 3rem !important;
+  }
+
+  .CharacterList {
+    min-height: 45vh;
+    max-height: 70vh;
+  }
+  
+  .CharacterView {
+    margin: .5em 1em;
+    padding: 0;
+    flex: 2.5;
+    max-height: 70vh;
+    h2 {
+      padding: .75rem 1rem 0;
+    }
+    .CharacterDetails {
+      padding: .5em;
+      li {
+        padding: 1em 1em .25em;
+      }
+    }
+  }
+
+  .loading {
+    font-size: 2em;
+  }
+
+  .error {
+    padding: 2em;
+    margin: 1em;
+    margin-top: 2rem;
+
+    & h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 @keyframes animation-fade {
   from { transform: scale(0);}
   to { transform: scale(1);}
@@ -245,16 +294,16 @@ input[type='submit'] {
 
 @keyframes animation-glitch {
   0% {
-   -webkit-transform:translateZ(0) rotate(-2deg);
-   transform:translateZ(0) rotate(-2deg);
-   -webkit-clip-path:polygon(0 2%,100% 2%,100% 5%,0 5%);
-   clip-path:polygon(0 2%,100% 2%,100% 5%,0 5%)
+    -webkit-transform:translateZ(0) rotate(-2deg);
+    transform:translateZ(0) rotate(-2deg);
+    -webkit-clip-path:polygon(0 2%,100% 2%,100% 5%,0 5%);
+    clip-path:polygon(0 2%,100% 2%,100% 5%,0 5%)
   }
   2% {
-   -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
-   clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
-   -webkit-transform:translate(-5px) rotate(33deg);
-   transform:translate(-5px) rotate(33deg)
+    -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    -webkit-transform:translate(-5px) rotate(33deg);
+    transform:translate(-5px) rotate(33deg)
   }
   6% {
     -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
@@ -269,10 +318,10 @@ input[type='submit'] {
     transform:translate(-5px) rotate(20deg)
   }
   9% {
-   -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
-   clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
-   -webkit-transform:translate(0) rotate(-5deg);
-   transform:translate(0) rotate(-5deg)
+    -webkit-clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    clip-path:polygon(0 78%,100% 78%,100% 100%,0 100%);
+    -webkit-transform:translate(0) rotate(-5deg);
+    transform:translate(0) rotate(-5deg)
   }
   10% {
     -webkit-clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
@@ -281,10 +330,10 @@ input[type='submit'] {
     transform:translate3d(5px,0,0) rotate(-2deg)
   }
   13% {
-   -webkit-clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
-   clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
-   -webkit-transform:translateZ(0) rotate(-12deg);
-   transform:translateZ(0) rotate(-12deg)
+    -webkit-clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
+    clip-path:polygon(0 54%,100% 54%,100% 44%,0 44%);
+    -webkit-transform:translateZ(0) rotate(-12deg);
+    transform:translateZ(0) rotate(-12deg)
   }
   13.1% {
     -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
@@ -305,72 +354,72 @@ input[type='submit'] {
     transform:translate3d(-5px,0,0) rotate(-12deg)
   }
   20.1% {
-   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
-   clip-path:polygon(0 0,0 0,0 0,0 0);
-   -webkit-transform:translate3d(5px,0,0) rotate(-10deg);
-   transform:translate3d(5px,0,0) rotate(-10deg)
+    -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+    clip-path:polygon(0 0,0 0,0 0,0 0);
+    -webkit-transform:translate3d(5px,0,0) rotate(-10deg);
+    transform:translate3d(5px,0,0) rotate(-10deg)
   }
   25% {
-   -webkit-clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
-   clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
-   -webkit-transform:translate3d(5px,0,0) rotate(5deg);
-   transform:translate3d(5px,0,0) rotate(5deg)
+    -webkit-clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+    clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+    -webkit-transform:translate3d(5px,0,0) rotate(5deg);
+    transform:translate3d(5px,0,0) rotate(5deg)
   }
   30% {
-   -webkit-clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
-   clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
-   -webkit-transform:translate3d(-5px,0,0) rotate(-7deg);
-   transform:translate3d(-5px,0,0) rotate(-7deg)
+    -webkit-clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+    clip-path:polygon(0 85%,100% 85%,100% 40%,0 40%);
+    -webkit-transform:translate3d(-5px,0,0) rotate(-7deg);
+    transform:translate3d(-5px,0,0) rotate(-7deg)
   }
   30.1% {
-   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
-   clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg)
+    -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+    clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg)
   }
   35% {
-   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   -webkit-transform:translate(-5px) rotate(-2deg);
-   transform:translate(-5px) rotate(-2deg)
+    -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    -webkit-transform:translate(-5px) rotate(-2deg);
+    transform:translate(-5px) rotate(-2deg)
   }
   40% {
-   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   -webkit-transform:translate(5px) rotate(-2deg);
-   transform:translate(5px) rotate(-2deg)
+    -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    -webkit-transform:translate(5px) rotate(-2deg);
+    transform:translate(5px) rotate(-2deg)
   }
   45% {
-   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   -webkit-transform:translate(-5px) rotate(-2deg);
-   transform:translate(-5px) rotate(-2deg)
+    -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    -webkit-transform:translate(-5px) rotate(-2deg);
+    transform:translate(-5px) rotate(-2deg)
   }
   50% {
-   -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
-   -webkit-transform:translate(0) rotate(-2deg);
-   transform:translate(0) rotate(-2deg)
+    -webkit-clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    clip-path:polygon(0 63%,100% 63%,100% 80%,0 80%);
+    -webkit-transform:translate(0) rotate(-2deg);
+    transform:translate(0) rotate(-2deg)
   }
   55% {
-   -webkit-clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
-   clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
-   -webkit-transform:translate3d(5px,0,0) rotate(-2deg);
-   transform:translate3d(5px,0,0) rotate(-2deg)
+    -webkit-clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+    clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+    -webkit-transform:translate3d(5px,0,0) rotate(-2deg);
+    transform:translate3d(5px,0,0) rotate(-2deg)
   }
   60% {
-   -webkit-clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
-   clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
-   -webkit-transform:translateZ(0) rotate(-2deg);
-   transform:translateZ(0) rotate(-2deg);
-   opacity:1
+    -webkit-clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+    clip-path:polygon(0 10%,100% 10%,100% 0,0 0);
+    -webkit-transform:translateZ(0) rotate(-2deg);
+    transform:translateZ(0) rotate(-2deg);
+    opacity:1
   }
   60.1% {
-   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
-   clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg);
-   opacity:1
+    -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+    clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg);
+    opacity:1
   }
   to {
-   -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
-   clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg);
-   opacity:1
+    -webkit-clip-path:polygon(0 0,0 0,0 0,0 0);
+    clip-path:polygon(0 0,0 0,0 0,0 0) rotate(-2deg);
+    opacity:1
   }
- }
+}
