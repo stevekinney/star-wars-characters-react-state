@@ -209,6 +209,14 @@ input[type='submit'] {
   font-family: 'Raleway', sans-serif;
   font-size: 5em;
   color:#28283d;
+  .loading-spin {
+    display: inline-block;
+    aspect-ratio: 1;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: conic-gradient(lime, green);
+    animation: animation-spin 1.75s infinite linear;
+  }
 }
 
 .error {
@@ -290,6 +298,10 @@ input[type='submit'] {
 @keyframes animation-fade {
   from { transform: scale(0);}
   to { transform: scale(1);}
+}
+
+@keyframes animation-spin {
+  to { transform: rotate(360deg);}
 }
 
 @keyframes animation-glitch {

@@ -96,7 +96,7 @@ const Application = () => {
           <section className="sidebar">
             <button className="button-fetch" onClick={ () => dispatch(fetchCharacters) }>Fetch Characters</button>
             {
-               state.characters.length === 0 && state.loading ? <h1 className="loading"><span role="img" aria-label="galaxy emoji">🌌</span> Loading...</h1>
+               state.characters.length === 0 && state.loading ? <h1 className="loading"><span className="loading-spin"></span> Loading...</h1>
               /* : dispatch.error ? <CharacterList characters={dummyCharacters} /> */
               : state.characters.length === 0 && state.error ? <div className="error"><h2>Ups! Something happened...</h2><p>{state.error.message}</p></div>
               //: state.characters.length > 0 ? <CharacterList characters={characters} />
