@@ -281,6 +281,9 @@ input[type='submit'] {
 
   .loading {
     font-size: 2em;
+    .loading-spin {
+      height: 2em;
+    }
   }
 
   .error {
