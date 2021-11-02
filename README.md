@@ -19,3 +19,10 @@ When fetching data from The Star Wars API a reducer was use to dispatch an actio
 <a href="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/Loading.jpeg"><img src="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/Loading.jpeg" alt="Screenshot of the app when the fetch is loading" width="240"/></a>&nbsp; &nbsp; &nbsp;
 <a href="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/Response.jpeg"><img src="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/Response.jpeg" alt="Screenshot of the app when the fetch gives the desired response from the API" width="240"/></a>&nbsp; &nbsp; &nbsp;
 <a href="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/Error.jpeg"><img src="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/Error.jpeg" alt="Screenshot of the app when the fetch returns an error" width="240"/></a></pre>
+</br>
+
+</br>
+
+### Screenshot of the original UI
+
+<a href="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/OriginalUI.jpeg"><img src="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/OriginalUI.jpeg" alt="Screenshot of the app when the fetch returns an error" width="600"/></a>
