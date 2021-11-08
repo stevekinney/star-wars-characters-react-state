@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StarfieldAnimation from 'react-starfield-animation';
 
 import CharacterList from './Components/CharacterList';
@@ -49,7 +49,6 @@ const fetchCharacters = (dispatch) => {
   })
   .catch(error => dispatch({ type: 'ERROR', payload: { error }}));
   
-  /* console.log('test', dispatch ); */
   return document.querySelector(".CharacterList").classList.add("visible");
 }
 
@@ -107,7 +106,9 @@ const Application = () => {
             }
           </section>
           <section className="CharacterView">
-            <Route path="/characters/:id" component={CharacterView}/>
+            <Routes>
+              <Route path="/characters/:id" element={<CharacterView />}/>
+            </Routes>
           </section>
         </main>
       </div>

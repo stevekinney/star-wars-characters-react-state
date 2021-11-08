@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 /* import dummyData from './dummy-data'; */
 import endpoint from '../Utilities/endpoint';
 
-const CharacterView = ({ match }) => {
+
+const CharacterView = () => {
+  let { id } = useParams();
   const [character, setCharacter] = useState({});
   // eslint-disable-next-line
   /* const [ dummyCharacters, setDummyCharacters ] = useState(dummyData); */
 
   useEffect(() => {
     // this fixes the mismatch between the param id and the actual character to display
-    let newId = Number(match.params.id) + 1;
+    let newId = Number(id) + 1;
     fetch(endpoint + 'people/' + newId)
       .then(response => response.json())
       .then(response => setCharacter(response));
-  }, [match.params.id]);
+  }, [id]);
 
-  /* console.log('test....', dummyCharacters); */
   return (
     <>
       <h2>{ character.name /* ? character.name : dummyCharacters[match.params.id].name */ }</h2>
