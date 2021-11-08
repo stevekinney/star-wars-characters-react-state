@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import StarfieldAnimation from 'react-starfield-animation';
 
-import CharacterList from './CharacterList';
-import CharacterView from './CharacterView';
+import CharacterList from './Components/CharacterList';
+import CharacterView from './Components/CharacterView';
 /* import dummyData from './dummy-data'; */
-import endpoint from './endpoint';
+import endpoint from './Utilities/endpoint';
 
 import './styles.scss';
 

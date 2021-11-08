@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 /* import dummyData from './dummy-data'; */
-import endpoint from './endpoint';
+import endpoint from '../Utilities/endpoint';
 
 const CharacterView = ({ match }) => {
   const [character, setCharacter] = useState({});
