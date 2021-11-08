@@ -6,11 +6,20 @@ This project is based on Setve Kinney's [React State](https://frontendmasters.co
 
 Check the live version [here!](https://swchars.web.app/)
 
-## Technology 
-- React (Frontend)
-- SCSS (UI)
-- Firebase (Hosting)
-- The StarWars AI (data)
+## Features
+- [X] View data about different Star Wars characters
+
+## Upcoming Features
+- [ ] Search Star Wars characters by name
+
+## Tech Stack
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [React Router](https://reactrouter.com/)
+- [Sass](https://sass-lang.com/)
+- [Firebase](https://firebase.google.com/)
+- [The Star Wars API](https://swapi.dev/)
+- [React Starfield Animation](https://www.npmjs.com/package/react-starfield-animation)
 
 
 ## Demo
@@ -23,6 +32,6 @@ When fetching data from The Star Wars API a reducer was use to dispatch an actio
 
 </br>
 
-### Screenshot of the original UI
+### Original UI Screenshot
 
 <a href="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/OriginalUI.jpeg"><img src="https://raw.githubusercontent.com/Claudiferock/star-wars-characters-react-state/master/public/screenshots/OriginalUI.jpeg" alt="Screenshot of the app when the fetch returns an error" width="600"/></a>
