@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import CharacterList from './CharacterList';
 
-import dummyData from './dummy-data';
+import endpoint from './endpoint';
+import useFetch from './useFetch';
 
 import './styles.scss';
 
+const formatData = (response) => (response && response.characters) || [];
+
 const Application = () => {
-  const [characters, setCharacters] = useState(dummyData);
+  const [characters, loading, error] = useFetch(
+    `${endpoint}/characters`,
+    formatData,
+  );
 
   return (
     <div className="Application">
@@ -19,7 +25,13 @@ const Application = () => {
       </header>
       <main>
         <section className="sidebar">
-          <CharacterList characters={characters} />
+          {loading ? (
+            <p className="loading">Loading...</p>
+          ) : (
+            <CharacterList characters={characters} />
+          )}
+
+          {error && <p className="error">{error.message}</p>}
         </section>
       </main>
     </div>
