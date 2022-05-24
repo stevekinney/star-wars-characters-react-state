@@ -50,7 +50,7 @@ We'll need to keep track of that state.
 
 ```js
 const [loading, setLoading] = useState(true);
-const [error, setError] = useState(error);
+const [error, setError] = useState(null);
 ```
 
 Updating the fetch effect.
